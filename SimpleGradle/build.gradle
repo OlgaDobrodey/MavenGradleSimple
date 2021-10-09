@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+
+group 'com.itrex.java.lab'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task stable(type: Copy) {
+    from "${buildDir}/libs"
+    into "${buildDir}/stable"
+}
+
+task dev(type: Copy) {
+    from "${buildDir}/libs"
+    into "${buildDir}/dev"
+}
+
+task deleteLibs(type: Delete) {
+    delete "${buildDir}/libs"
+}
+
+dev.dependsOn jar
+stable.dependsOn jar
+
+dev.finalizedBy deleteLibs
+stable.finalizedBy deleteLibs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
