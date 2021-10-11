@@ -23,36 +23,18 @@ ext {
     activeProfile = "dev"
 }
 
-//task stable(type: Copy) {
-//    from "${buildDir}/libs"
-//    into "${buildDir}/stable"
-//}
-//
-//task dev(type: Copy) {
-//    from "${buildDir}/libs"
-//    into "${buildDir}/dev"
-//}
-//
-//task deleteLibs(type: Delete) {
-//    delete "${buildDir}/libs"
-//}
-//
-//dev.dependsOn jar
-//stable.dependsOn jar
-//
-//dev.finalizedBy deleteLibs
-//stable.finalizedBy deleteLibs
-
+//gradle build -Pprofile="stable"
 build {
+    buildDir = "build/${activeProfile}"
+}
+
+task myChek(dependsOn: build) {
     if (project.hasProperty("profile") && availableProfiles.contains(project.profile)) {
         activeProfile = project.profile
     } else {
         logger.warn("Profile not set or unknown. Use default profile: " + activeProfile)
     }
-
-    buildDir = "build/${activeProfile}"
 }
-
 
 
 
