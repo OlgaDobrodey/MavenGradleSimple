@@ -28,7 +28,7 @@ build {
     buildDir = "build/${activeProfile}"
 }
 
-task myChek(dependsOn: build) {
+task setProfile(dependsOn: build) {
     if (project.hasProperty("profile") && availableProfiles.contains(project.profile)) {
         activeProfile = project.profile
     } else {
